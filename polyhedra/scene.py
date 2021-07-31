@@ -48,6 +48,3 @@ class Main(ThreeDScene):
         cube = Polyhedron(vertex_coords, faces_list).scale(3/2)
         self.play(Create(cube))
         self.play(cube.animate.scale(6/5).to_corner(DL))
-
-        
-```
