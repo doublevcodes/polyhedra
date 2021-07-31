@@ -25,3 +25,29 @@ class Main(ThreeDScene):
 
         self.play(FadeOut(f_expl, v_expl, e_expl))
         self.play(formula.animate.scale(0.3333).to_corner(UL)
+
+        # Create cube and send to corner
+        vertex_coords = [
+            [1, 1, 0],
+            [1, -1, 0],
+            [-1, -1, 0],
+            [-1, 1, 0],
+            [1, 1, 2],
+            [1, -1, 2],
+            [-1, 1, 2],
+            [-1, -1, 2]
+        ]
+        faces_list = [
+            [0, 1, 2, 3],
+            [0, 1, 5, 4],
+            [0, 3, 6, 4],
+            [2, 1, 5, 7],
+            [2, 3, 6, 7],
+            [4, 5, 7, 6]
+        ]
+        cube = Polyhedron(vertex_coords, faces_list).scale(3/2)
+        self.play(Create(cube))
+        self.play(cube.animate.scale(6/5).to_corner(DL))
+
+        
+```
