@@ -1,4 +1,5 @@
 from manim import *
+from itertools import combinations
 
 class Main(ThreeDScene):
 
@@ -24,7 +25,7 @@ class Main(ThreeDScene):
             self.play(obj.animate.move_to(pos * UP))
 
         self.play(FadeOut(f_expl, v_expl, e_expl))
-        self.play(formula.animate.scale(0.3333).to_corner(UL)
+        self.play(formula.animate.scale(0.3333).to_corner(UL))
 
         # Create cube and send to corner
         vertex_coords = [
@@ -45,6 +46,20 @@ class Main(ThreeDScene):
             [2, 3, 6, 7],
             [4, 5, 7, 6]
         ]
-        cube = Polyhedron(vertex_coords, faces_list).scale(3/2)
+        cube = Polyhedron(vertex_coords, faces_list).scale(3/2).rotate(75 * DEGREES).rotate(-45 * DEGREES, axis=[0, 1, 0])
         self.play(Create(cube))
-        self.play(cube.animate.scale(6/5).to_corner(DL))
+        self.play(cube.animate.scale(2/3).shift(4 * LEFT))
+
+        # Labels - label the square's properties
+        faces = Text("Faces = 6").set_color(RED)
+        edges = Text("Edges = 12").set_color(BLUE)
+        vertices = Text("Vertices = 8").set_color(YELLOW)
+
+        self.play(Write(faces))
+        self.play(faces.animate.shift(1 * RIGHT + 1.5 * UP))
+
+        self.play(Write(vertices))
+        self.play(vertices.animate.shift(1 * RIGHT + 1.5 * DOWN))
+
+        self.play(Write(edges))
+        self.play(edges.animate.shift(1 * RIGHT))
