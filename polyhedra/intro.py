@@ -28,32 +28,14 @@ class Main(ThreeDScene):
         self.play(formula.animate.scale(0.3333).to_corner(UL))
 
         # Create cube and send to corner
-        vertex_coords = [
-            [1, 1, 0],
-            [1, -1, 0],
-            [-1, -1, 0],
-            [-1, 1, 0],
-            [1, 1, 2],
-            [1, -1, 2],
-            [-1, 1, 2],
-            [-1, -1, 2]
-        ]
-        faces_list = [
-            [0, 1, 2, 3],
-            [0, 1, 5, 4],
-            [0, 3, 6, 4],
-            [2, 1, 5, 7],
-            [2, 3, 6, 7],
-            [4, 5, 7, 6]
-        ]
-        cube = Polyhedron(vertex_coords, faces_list).scale(3/2).rotate(75 * DEGREES).rotate(-45 * DEGREES, axis=[0, 1, 0])
-        self.play(Create(cube))
+        cube = Cube().scale(3/2).rotate(75 * DEGREES).rotate(-45 * DEGREES, axis=[0, 1, 0])
+        self.play(DrawBorderThenFill(cube))
         self.play(cube.animate.scale(2/3).shift(4 * LEFT))
 
         # Labels - label the square's properties
-        faces = Text("Faces = 6").set_color(RED)
-        edges = Text("Edges = 12").set_color(BLUE)
-        vertices = Text("Vertices = 8").set_color(YELLOW)
+        faces = Tex("Faces = ", "6").set_color(RED)
+        edges = Tex("Edges = ", "12").set_color(BLUE)
+        vertices = Tex("Vertices = ", "8").set_color(YELLOW)
 
         self.play(Write(faces))
         self.play(faces.animate.shift(1 * RIGHT + 1.5 * UP))
@@ -63,3 +45,14 @@ class Main(ThreeDScene):
 
         self.play(Write(edges))
         self.play(edges.animate.shift(1 * RIGHT))
+
+        minus, plus, number = MathTex("-"), MathTex("+"), MathTex("= 2")
+        self.play(FadeOut(cube, faces[0], edges[0], vertices[0]))
+        group = VGroup(faces[1], minus, edges[1], plus, vertices[1])
+        solved_group = group.add(number)
+        self.play(group.animate.arrange().scale(2))
+        self.play(FadeTransformPieces(group, solved_group))
+        self.play(FadeOut(solved_group))
+        self.play(formula.animate.move_to(ORIGIN).scale(3))
+        self.play(Unwrite(formula))
+        self.wait(2)
