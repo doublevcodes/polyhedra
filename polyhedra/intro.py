@@ -52,7 +52,7 @@ class Main(ThreeDScene):
         solved_group = group.add(number)
         self.play(group.animate.arrange().scale(2))
         self.play(FadeTransformPieces(group, solved_group))
-        self.play(FadeOut(solved_group))
+        self.play(Unwrite(solved_group))
         self.play(formula.animate.move_to(ORIGIN).scale(3))
         self.play(Unwrite(formula))
         self.wait(2)

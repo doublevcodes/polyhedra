@@ -6,7 +6,7 @@ authors = ["Vivaan Verma <vivaan.verma@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-manim = "^0.8.0"
+manim = "0.9.0"
 
 [tool.poetry.dev-dependencies]
 
